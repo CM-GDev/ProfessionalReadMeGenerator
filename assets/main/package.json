@@ -1,0 +1,22 @@
+{
+  "name": "professionalreadmegenerator",
+  "version": "1.0.0",
+  "description": "Easily create a README file by using this command-line application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CM-GDev/ProfessionalReadMeGenerator.git"
+  },
+  "author": "Cristobal M",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CM-GDev/ProfessionalReadMeGenerator/issues"
+  },
+  "homepage": "https://github.com/CM-GDev/ProfessionalReadMeGenerator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.2"
+  }
+}
