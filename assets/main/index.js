@@ -1,67 +1,187 @@
+//Include packages needed for this application
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-const generateHTML = (data) =>
-  `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <title>Document</title>
-</head>
-<body>
-  <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Hi! My name is ${data.name}</h1>
-    <p class="lead">I am from ${data.location}.</p>
-    <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
-    <ul class="list-group">
-      <li class="list-group-item">My GitHub username is ${data.github}</li>
-      <li class="list-group-item">LinkedIn: ${data.linkedin}</li>
-    </ul>
-  </div>
-</div>
-</body>
-</html>`;
+//Greeting the user and letting them know about the application
+console.log()
 
-inquirer
-  .prompt([
-    {
-      type: "input",
-      name: "name",
-      message: "What is your name?",
-    },
-    {
-      type: "input",
-      name: "location",
-      message: "Where are you from?",
-    },
-    {
-      type: "input",
-      name: "hobby",
-      message: "What is your favorite hobby?",
-    },
-    {
-      type: "input",
-      name: "food",
-      message: "What is your favorite food?",
-    },
-    {
-      type: "input",
-      name: "github",
-      message: "Enter your GitHub Username",
-    },
-    {
-      type: "input",
-      name: "linkedin",
-      message: "Enter your LinkedIn URL.",
-    },
-  ])
-  .then((answers) => {
-    const htmlPageContent = generateHTML(answers);
+// Function for populating a template literal with User's answers
+const generateREADME = (data) =>
+  `# ${data.projectTitle}
+  [![License: ${data.license}](${data.license.shield})](${data.license.link})
 
-    fs.writeFile("index.html", htmlPageContent, (err) =>
-      err ? console.log(err) : console.log("Successfully created index.html!")
+  ## Description
+  \`\`\`md
+  - My motivation for the project: ${data.descriptionMotivation}
+  - My reason and/or what problem I'm trying to solve: ${data.descriptionWhy}
+  - By doing this project, I learned: ${data.descriptionWhatLearn}
+  \`\`\`  
+  ## Table of Contents
+   
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Credits](#credits)
+  - [License](#license)
+  - [How To Contribute](#how_to_contribute)
+  - [Tests](#tests)
+  - [Questions](#questions)
+  
+  ## Installation
+  
+  ${data.installation}
+  
+  ## Usage
+  
+  ${data.usage}
+    
+  ## Credits
+  
+  ${data.credits}
+  
+  ## License
+  
+  ${data.license} License
+
+  Copyright (c) [2022] [${data.fullName}]
+  
+  ## How to Contribute
+  
+  - [Contributor Covenant](https://www.contributor-covenant.org/) 
+  - Additional guidelines: ${data.contribute}
+  
+  ## Tests
+  
+  How to test: ${data.test}
+  
+  ## Questions
+  
+  Hor `;
+
+//Create an array of questions for user input
+const questions =[ 
+  {
+    type: "confirm",
+    name: "introMssg",
+    message: `Hi! Welcome to Node README generator.
+    This application will create a high-quality, professional README file for your project.
+    We will now ask you a few questions (Hit enter to continue)`,
+    default: true,
+  },  
+  {
+    type: "input",
+    name: "fullName",
+    message: "What is your full name?",
+  },
+  {
+    type: "input",
+    name: "projectTitle",
+    message: `What is the Title of your project?`,
+  },
+  {
+    type: "confirm",
+    name: "descriptionMssg",
+    message: `--------------------------------------
+    Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide (Hit enter to continue):`,
+    default: true,
+  },
+  {
+    type: "input",
+    name: "descriptionMotivation",
+    message: "What was your motivation?",
+  },
+  {
+    type: "input",
+    name: "descriptionWhy",
+    message: "Why did you build this project or What problem does it solve?",
+  },
+  {
+    type: "input",
+    name: "descriptionWhatLearned",
+    message: "What did you learn?",
+  },
+  {
+    type: "confirm",
+    name: "lastQuestions",
+    message: `--------------------------------------
+    The following questions are about Installation, Usage Information, Credits, Contribution Guidelines and Test Instructions (Hit enter to continue):`,
+    default: true,
+  },
+  {
+    type: "input",
+    name: "installation",
+    message: "What are the steps required to install your project? Provide a step-by-step description of how to get the development environment running.",
+  },
+  {
+    type: "input",
+    name: "usage",
+    message: "Provide instructions and examples if necessary for use.",
+  },
+  {
+    type: "input",
+    name: "credits",
+    message: "List your collaborators, if any, with links to their GitHub profiles. If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section. If you followed tutorials, include links to those here as well.",
+  },
+  {
+    type: "input",
+    name: "contribute",
+    message: "The Contributor Covenant - an industry standard - link will be included in the README for other developers to use as a guide for contributing to your project. Is there anything else you would like to add on how to contribute to your project (Hit enter for no)?",
+  },
+  {
+    type: "input",
+    name: "test",
+    message: "Are there any tests for your application? If so, provide examples on how to run them here:",
+  },
+  {
+    type: 'checkbox',
+    message: `--------------------------------------
+    A license lets other developers know what they can and cannot do with your project. Please select one from the following options:`,
+    name: 'license',
+    choices: [
+      {
+        name: 'MIT',
+      },
+      {
+        name: 'ISC',
+      },
+      {
+        name: 'GNU v3.0',
+      },
+      {
+        name: 'Apache v2.0',
+      },
+    ],
+    validate(answer) {
+      if (answer == "MIT") {
+        answer.link = 'https://opensource.org/licenses/MIT';
+        answer.shield = 'https://img.shields.io/badge/License-MIT-yellow.svg';
+        return true;
+      } else if (answer == "ISC"){
+        answer.link = 'https://opensource.org/licenses/ISC';
+        answer.shield = 'https://img.shields.io/badge/License-ISC-blue.svg'
+        return true
+      } else if(answer == 'GNU v3.0'){
+        answer.link = 'https://www.gnu.org/licenses/gpl-3.0';
+        answer.shield = 'https://img.shields.io/badge/License-GPLv3-blue.svg)';
+        return true;
+      }else {
+        answer.link = 'https://opensource.org/licenses/Apache-2.0';
+        answer.shield = 'https://img.shields.io/badge/License-Apache_2.0-blue.svg)';
+        return true;
+      }
+    },
+  },
+];
+
+//Create a function to initialize app
+function init() {
+  inquirer.prompt(questions).then((answers) => {
+    const readMeContent = generateREADME(answers);
+// Create a function to write README file
+    fs.writeFile("README.md", readMeContent, (err) =>
+      err ? console.log(err) : console.log("Successfully created your README file!")
     );
   });
+}
+
+//Function call to initialize app
+init();
