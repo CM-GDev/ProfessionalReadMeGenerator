@@ -14,7 +14,7 @@ const generateREADME = (data) =>
   \`\`\`md
   - My motivation for the project: ${data.descriptionMotivation}
   - My reason and/or what problem I'm trying to solve: ${data.descriptionWhy}
-  - By doing this project, I learned: ${data.descriptionWhatLearn}
+  - By doing this project, I learned: ${data.descriptionWhatLearned}
   \`\`\`  
   ## Table of Contents
    
@@ -28,19 +28,19 @@ const generateREADME = (data) =>
   
   ## Installation
   
-  ${data.installation}
+    ${data.installation}
   
   ## Usage
   
-  ${data.usage}
+    ${data.usage}
     
   ## Credits
   
-  ${data.credits}
+    ${data.credits}
   
   ## License
   
-  ${data.license} License
+    ${data.license} License
 
   Copyright (c) [2022] [${data.fullName}]
   
@@ -51,11 +51,13 @@ const generateREADME = (data) =>
   
   ## Tests
   
-  How to test: ${data.test}
+    How to test: ${data.test}
   
   ## Questions
   
-  Hor `;
+  \`\`\`md
+    For any questions, you can reach me at either my [Github](${data.github}) or [Email](${data.email}) account 
+  \`\`\`  `;
 
 //Create an array of questions for user input
 const questions =[ 
@@ -64,7 +66,7 @@ const questions =[
     name: "introMssg",
     message: `Hi! Welcome to Node README generator.
     This application will create a high-quality, professional README file for your project.
-    We will now ask you a few questions (Hit enter to continue)`,
+    PLease answer the following questions. When a question is not applicable, type "N/A". (Hit enter to continue)`,
     default: true,
   },  
   {
@@ -75,7 +77,17 @@ const questions =[
   {
     type: "input",
     name: "projectTitle",
-    message: `What is the Title of your project?`,
+    message: `What is the title of your project?`,
+  },
+  {
+    type: "input",
+    name: "github",
+    message: `What is the URL to your GitHub account?`,
+  },
+  {
+    type: "input",
+    name: "email",
+    message: `What is your email address?`,
   },
   {
     type: "confirm",
@@ -101,9 +113,9 @@ const questions =[
   },
   {
     type: "confirm",
-    name: "lastQuestions",
+    name: "moreQuestions",
     message: `--------------------------------------
-    The following questions are about Installation, Usage Information, Credits, Contribution Guidelines and Test Instructions (Hit enter to continue):`,
+    The following questions are about Installation, Usage Information, Contribution Guidelines and Test Instructions (Hit enter to continue):`,
     default: true,
   },
   {
@@ -114,17 +126,12 @@ const questions =[
   {
     type: "input",
     name: "usage",
-    message: "Provide instructions and examples if necessary for use.",
-  },
-  {
-    type: "input",
-    name: "credits",
-    message: "List your collaborators, if any, with links to their GitHub profiles. If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section. If you followed tutorials, include links to those here as well.",
+    message: "Provide instructions and examples if any for use.",
   },
   {
     type: "input",
     name: "contribute",
-    message: "The Contributor Covenant - an industry standard - link will be included in the README for other developers to use as a guide for contributing to your project. Is there anything else you would like to add on how to contribute to your project (Hit enter for no)?",
+    message: "The Contributor Covenant (an industry standard) link will be included in the README for other developers to use as a guide for contributing to your project. Are there additional guidelines you would like to add for contributors to follow (Hit enter for no)?",
   },
   {
     type: "input",
@@ -132,9 +139,20 @@ const questions =[
     message: "Are there any tests for your application? If so, provide examples on how to run them here:",
   },
   {
-    type: 'checkbox',
+    type: "confirm",
+    name: "lastQuestions",
     message: `--------------------------------------
-    A license lets other developers know what they can and cannot do with your project. Please select one from the following options:`,
+    The last questions are about Credits and type of License for your project: (Hit enter to continue):`,
+    default: true,
+  },
+  {
+    type: "input",
+    name: "credits",
+    message: "List your collaborators, if any, with links to their GitHub profiles. If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section. If you followed tutorials, include links to those here as well.",
+  },
+  {
+    type: 'checkbox',
+    message: 'A license lets other developers know what they can and cannot do with your project. Please select one from the following options:',
     name: 'license',
     choices: [
       {
@@ -161,11 +179,11 @@ const questions =[
         return true
       } else if(answer == 'GNU v3.0'){
         answer.link = 'https://www.gnu.org/licenses/gpl-3.0';
-        answer.shield = 'https://img.shields.io/badge/License-GPLv3-blue.svg)';
+        answer.shield = 'https://img.shields.io/badge/License-GPLv3-blue.svg';
         return true;
       }else {
         answer.link = 'https://opensource.org/licenses/Apache-2.0';
-        answer.shield = 'https://img.shields.io/badge/License-Apache_2.0-blue.svg)';
+        answer.shield = 'https://img.shields.io/badge/License-Apache_2.0-blue.svg';
         return true;
       }
     },
@@ -178,7 +196,7 @@ function init() {
     const readMeContent = generateREADME(answers);
 // Create a function to write README file
     fs.writeFile("README.md", readMeContent, (err) =>
-      err ? console.log(err) : console.log("Successfully created your README file!")
+      err ? console.log(err) : console.log("You have successfully created your README file!")
     );
   });
 }
