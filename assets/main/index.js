@@ -2,9 +2,6 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-//Greeting the user and letting them know about the application
-console.log()
-
 // Function for populating a template literal with User's answers
 const generateREADME = (data) =>
   `# ${data.projectTitle}
@@ -12,9 +9,10 @@ const generateREADME = (data) =>
 
   ## Description
   \`\`\`md
-  - My motivation for the project: ${data.descriptionMotivation}
-  - My reason and/or what problem I'm trying to solve: ${data.descriptionWhy}
-  - By doing this project, I learned: ${data.descriptionWhatLearned}
+  - ${data.descriptionMotivation}
+  - ${data.descriptionWhy}
+  - ${data.descriptionWhatLearned}
+  - ${data.descriptionAdd}
   \`\`\`  
   ## Table of Contents
    
@@ -28,40 +26,40 @@ const generateREADME = (data) =>
   
   ## Installation
   
-    ${data.installation}
+  ${data.installation}
   
   ## Usage
   
-    ${data.usage}
+  ${data.usage}
     
   ## Credits
   
-    ${data.credits}
+  ${data.credits}
   
   ## License
   
-    ${data.license} License
+  ${data.license} License
 
   Copyright (c) [2022] [${data.fullName}]
   
   ## How to Contribute
   
   - [Contributor Covenant](https://www.contributor-covenant.org/) 
-  - Additional guidelines: ${data.contribute}
+  - ${data.contribute}
   
   ## Tests
   
-    How to test: ${data.test}
+  ${data.test}
   
   ## Questions
   
   \`\`\`md
-    For any questions, you can reach me at either my [Github](${data.github}) or [Email](${data.email}) account 
+    For any questions, you can reach me through my [GITHUB](${data.github}) or email: ${data.email} account. 
   \`\`\`  `;
 
 //Create an array of questions for user input
 const questions =[ 
-  {
+  {//A greeting and brief description of the application
     type: "confirm",
     name: "introMssg",
     message: `Hi! Welcome to Node README generator.
@@ -93,18 +91,18 @@ const questions =[
     type: "confirm",
     name: "descriptionMssg",
     message: `--------------------------------------
-    Provide a short description explaining the what, why, and how of your project. Use the following questions as a guide (Hit enter to continue):`,
+    Provide a short description explaining the what, why, and how of your project. Use the following questions as guides (Hit enter to continue):`,
     default: true,
   },
   {
     type: "input",
     name: "descriptionMotivation",
-    message: "What was your motivation?",
+    message: "What was your motivation or reason?",
   },
   {
     type: "input",
     name: "descriptionWhy",
-    message: "Why did you build this project or What problem does it solve?",
+    message: "What problem does it solve?",
   },
   {
     type: "input",
@@ -112,10 +110,15 @@ const questions =[
     message: "What did you learn?",
   },
   {
+    type: "input",
+    name: "descriptionAdd",
+    message: "Anything else you would like to add to your description section?",
+  },
+  {
     type: "confirm",
     name: "moreQuestions",
     message: `--------------------------------------
-    The following questions are about Installation, Usage Information, Contribution Guidelines and Test Instructions (Hit enter to continue):`,
+    The following questions are about Installation, Usage Information, Contribution Guidelines and Test Instructions. (Hit enter to continue):`,
     default: true,
   },
   {
