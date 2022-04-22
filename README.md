@@ -20,7 +20,7 @@
   
   ## Installation
   
-  To use this application, there are a few critical steps to folllow 1) Have [NODE.js](https://nodejs.org/en/download/) installed on your computer. 2) Download Inquirer from your command-line "npm install inquirer" AND 3) Clone my [GitHub](https://github.com/CM-GDev/ProfessionalReadMeGenerator) repo for this application.
+  To use this application, there are three steps to folllow 1) Have [NODE.js](https://nodejs.org/en/download/) installed on your computer. 2) Download Inquirer from your command-line "npm install inquirer" AND 3) Clone my [GitHub](https://github.com/CM-GDev/ProfessionalReadMeGenerator) repo for this application.
   
   ## Usage
   

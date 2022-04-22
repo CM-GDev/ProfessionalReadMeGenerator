@@ -2,7 +2,7 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-// Function for populating a template literal with User's answers
+// Function for populating a README template literal with User's input
 const generateREADME = (data) =>
   `# ${data.projectTitle}
   [![License: ${data.license}](${data.license.shield})](${data.license.link})
@@ -52,10 +52,9 @@ const generateREADME = (data) =>
   ${data.test}
   
   ## Questions
-  
-  \`\`\`md
-    For any questions, you can reach me through my [GITHUB](${data.github}) or email: ${data.email} account. 
-  \`\`\`  `;
+    
+  For any questions, you can reach me through my [GITHUB](${data.github}) or email: ${data.email} account. 
+  `;
 
 //Create an array of questions for user input
 const questions =[ 
@@ -153,7 +152,7 @@ const questions =[
     name: "credits",
     message: "List your collaborators, if any, with links to their GitHub profiles. If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section. If you followed tutorials, include links to those here as well.",
   },
-  {
+  {//Creating a checkbox input type for user to select one license for their project
     type: 'checkbox',
     message: 'A license lets other developers know what they can and cannot do with your project. Please select one from the following options:',
     name: 'license',
@@ -170,7 +169,7 @@ const questions =[
       {
         name: 'Apache v2.0',
       },
-    ],
+    ], //Depending on what license the user selects, the appropriate links will populate the README file.
     validate(answer) {
       if (answer == "MIT") {
         answer.link = 'https://opensource.org/licenses/MIT';
