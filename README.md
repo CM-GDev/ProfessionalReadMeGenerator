@@ -6,7 +6,7 @@
   - This is my first homework assignment using NODE.js for the Full Stack Web Developer course I'm enrolled in. The assigment was to create a command-line application that dynamically generates a professional README.md file from input provided by the user.
   - The application adds the following sections to the generated README file: Description, Table of Contents, Installation Instructions, Usage Information, Contribution Guidelines, Test Instructions, Credits, and a Questions section with contact information.
   - By completing this assignment, I was able to implement lessons from my course, including: How to use NPM, Code JavaScript outside of a web browser, and revisit what makes a professional README file.
-  - See the Usage Information of this README for a link to a walkthrough video that demonstrates the appication's functionality. Additionally, this README file was generated using the README generator.
+  - See the Usage Information of this README for a link to a walkthrough video that demonstrates the appication's functionality. Additionally, this README file was generated using the README generator.C
   ```  
   ## Table of Contents
    
